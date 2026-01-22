@@ -17,9 +17,11 @@
 package com.alipay.sofa.registry.common.model.metaserver.inter.heartbeat;
 
 import com.alipay.sofa.registry.common.model.Node;
+import com.alipay.sofa.registry.common.model.metaserver.inter.heartbeat.metrics.NodeMetrics;
 import com.alipay.sofa.registry.common.model.slot.BaseSlotStatus;
 import com.alipay.sofa.registry.common.model.slot.SlotConfig;
 import com.alipay.sofa.registry.common.model.slot.SlotTable;
+
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
@@ -34,6 +36,8 @@ public class HeartbeatRequest<T extends Node> implements Serializable {
   private int duration;
 
   private final T node;
+
+  private NodeMetrics nodeMetrics;
 
   private final long slotTableEpoch;
 
@@ -68,6 +72,7 @@ public class HeartbeatRequest<T extends Node> implements Serializable {
       SlotConfig.SlotBasicInfo slotBasicInfo,
       Map<String, Long> remoteClusterSlotTableEpoch) {
     this.node = node;
+    this.nodeMetrics = null;
     this.slotTableEpoch = slotTableEpoch;
     this.dataCenter = dataCenter;
     this.timestamp = timestamp;
@@ -96,6 +101,7 @@ public class HeartbeatRequest<T extends Node> implements Serializable {
       final List<BaseSlotStatus> slotStatuses,
       Map<String, Long> remoteClusterSlotTableEpoch) {
     this.node = node;
+    this.nodeMetrics = null;
     this.slotTableEpoch = slotTableEpoch;
     this.dataCenter = dataCenter;
     this.timestamp = timestamp;
@@ -129,6 +135,14 @@ public class HeartbeatRequest<T extends Node> implements Serializable {
    */
   public T getNode() {
     return node;
+  }
+
+  public NodeMetrics getNodeMetrics() {
+    return nodeMetrics;
+  }
+
+  public void setNodeMetrics(NodeMetrics nodeMetrics) {
+    this.nodeMetrics = nodeMetrics;
   }
 
   /**
